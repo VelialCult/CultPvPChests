@@ -92,8 +92,9 @@ public class ChestManager {
                 long timer = TimeUtil.parseStringToTime("chests." + key + ".delay");
                 List<String> message = config.getStringList("chests." + key + ".message");
                 int minOnlinePlayers = config.getInt("chests." + key + ".minOnlinePlayers");
+                int itemSlotChance = config.getInt("chests." + key + ".item-slot-chance");
                 List<String> hologramLines = config.getStringList("chests." + key + ".hologram-lines");
-                addChest(new Chest(key, LocationUtil.stringToLocation("chests." + key + ".location"), timer, message, minOnlinePlayers, loot, hologramLines));
+                addChest(new Chest(key, LocationUtil.stringToLocation("chests." + key + ".location"), timer, message, minOnlinePlayers, loot, hologramLines, itemSlotChance));
             }
         }
     }

@@ -19,6 +19,7 @@ public class Chest {
 
     private LocalDateTime lastOpen;
 
+    private double itemSlotChance;
     private final String key;
     private List<String> hologramLines;
     private Map<ItemStack, Double> loot;
@@ -33,10 +34,17 @@ public class Chest {
     }
 
     public Chest(String key, Location location, long timer, List<String> message, int minOnlinePlayers) {
-        this(key, location, timer, message, minOnlinePlayers, new HashMap<>(),  new ArrayList<>());
+        this(key, location, timer, message, minOnlinePlayers, new HashMap<>(),  new ArrayList<>(), 0.25);
     }
 
-    public Chest(String key, Location location, long timer, List<String> message, int minOnlinePlayers, Map<ItemStack, Double> loot, List<String> hologramLines) {
+    public Chest(String key,
+                 Location location,
+                 long timer,
+                 List<String> message,
+                 int minOnlinePlayers,
+                 Map<ItemStack, Double> loot,
+                 List<String> hologramLines,
+                 double itemSlotChance) {
         this.location = location;
         this.key = key;
         this.delay = timer;
@@ -45,6 +53,7 @@ public class Chest {
         this.loot = loot;
         this.isOpenable = false;
         this.hologramLines = hologramLines;
+        this.itemSlotChance = itemSlotChance;
         this.lastOpen = LocalDateTime.now();
     }
 
@@ -159,5 +168,9 @@ public class Chest {
         } catch (Exception e) {
             CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при установке текста голограммы " + message + " для сундука " + key);
         }
+    }
+
+    public double getItemSlotChance() {
+        return itemSlotChance;
     }
 }

@@ -176,6 +176,36 @@ public class CultPvPChestsCommand implements CommandExecutor {
                         }
                         break;
                     }
+                    case "set-pause": {
+                        if (args.length != 3) {
+                            VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.set-pause.usage"));
+                            return true;
+                        }
+
+                        String key = args[1];
+
+                        if (!chestManager.chestNameIsExists(key)) {
+                            VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.not-exists"));
+                            return true;
+                        }
+
+                        Chest chest = chestManager.getChestById(key);
+
+                        long delay = 0;
+
+                        try {
+                            delay = TimeUtil.parseStringToTime(args[2]);
+
+                        } catch (Exception e) {
+                            VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.wrong-value",
+                                    new ReplaceData("{value}", args[2])));
+                        }
+
+                        chest.setPauseDelay(delay);
+                        VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.set-pause.set",
+                                new ReplaceData("{delay}", TimeUtil.getTime(delay))));
+                        break;
+                    }
                     case "set-delay": {
                         if (args.length != 3) {
                             VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.set-delay.usage"));

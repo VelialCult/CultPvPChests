@@ -18,6 +18,7 @@ messages:
       - ' &6&l* &fУстановить минимальный онлайн для открытия - &e/cultpvpchests set-min-online <название сундука> <минимальный онлайн>'
       - ' &6&l* &fУстановить текст голограммы - &e/cultpvpchests set-hologram <название сундука> <сообщение> &7(Чтобы сделать перенос строки используйте \n)'
       - ' &6&l* &fУстановить шанс на появление предмета - &e/cultpvpchests set-item-chance <название сундука> <вероятность>'
+      - ' &6&l* &fУстановить задержку между закрытием - &e/cultpvpchests set-pause <название сундука> <задержка>'
     create:
       usage: "&6&lCultPvPChests &8| &fИспользуйте - &e/cultpvpchests create <название сундука> <время обновления> <минимальный онлайн>"
       key-already-exists: "&6&lCultPvPChests &8| &cДанное название уже используется."
@@ -41,5 +42,8 @@ messages:
     set-message:
       usage: "&6&lCultPvPChests &8| &fИспользуйте - &e/cultpvpchests set-message <название сундука> <сообщение> &7(Чтобы сделать перенос строки используйте \n)"
       set: "&6&lCultPvPChests &8| &fВы успешно установили сообщение для сундука"
+    set-pause:
+      usage: "&6&lCultPvPChests &8| &fИспользуйте - &e/cultpvpchests set-pause <название сундука> <задержка>"
+      set: "&6&lCultPvPChests &8| &fВы успешно установили задержку между закрытием: &a{time}"
 
 chests: {}

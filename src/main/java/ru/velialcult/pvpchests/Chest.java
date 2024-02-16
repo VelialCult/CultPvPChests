@@ -194,4 +194,18 @@ public class Chest {
             CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при установке вероятности лута в слоте " + unlockedBroadcast + " для сундука " + key);
         }
     }
+
+    public void setPauseDelay(long delay) {
+        try {
+            this.pauseDelay = delay;
+            configFile.getConfig().set("chests." + key + ".pause-delay",delay);
+            configFile.reload();
+        } catch (Exception e) {
+            CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при установке задержки перед закрытием в слоте " + unlockedBroadcast + " для сундука " + key);
+        }
+    }
+
+    public long getPauseDelay() {
+        return pauseDelay;
+    }
 }

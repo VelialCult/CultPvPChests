@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="CultPvPChests:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CultPvPChests_jar</output-path>
+    <root id="root">
+      <element id="archive" name="CultPvPChests.jar">
+        <element id="module-output" name="CultPvPChests" />
+      </element>
+      <element id="library" level="project" name="CultLibrary-1.0.4" />
+    </root>
+  </artifact>
+</component>

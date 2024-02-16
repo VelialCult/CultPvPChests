@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: ru.velialcult.pvpchests.CultPvPChests
+Class-Path: CultLibrary-1.0.4.jar
+

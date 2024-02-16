@@ -7,8 +7,6 @@ import org.bukkit.Location;
 import ru.velialcult.library.core.VersionAdapter;
 import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.provides.wrapper.HologramWrapper;
-import ru.velialcult.typo.CultExperiencedTypo;
-import ru.velialcult.typo.provides.wrapper.HologramWrapper;
 
 import java.util.List;
 import java.util.function.Consumer;

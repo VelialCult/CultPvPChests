@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.velialcult.library.bukkit.utils.ConfigurationUtil;
 import ru.velialcult.pvpchests.command.CultPvPChestsCommand;
 import ru.velialcult.pvpchests.file.ConfigFile;
+import ru.velialcult.pvpchests.listener.PvPChestsListener;
 import ru.velialcult.pvpchests.manager.ChestManager;
 import ru.velialcult.pvpchests.manager.HologramManager;
 import ru.velialcult.pvpchests.manager.LootChestManager;
@@ -48,6 +49,8 @@ public class CultPvPChests extends JavaPlugin {
 
             ChestOpenTask chestOpenTask = new ChestOpenTask(chestManager);
             chestOpenTask.runTaskTimer(this, 0L, 20L);
+
+            Bukkit.getPluginManager().registerEvents(new PvPChestsListener(chestManager), this);
         } catch (Exception e) {
             getLogger().severe("Произошла ошибка при инициализации плагина: " + e.getMessage());
         }

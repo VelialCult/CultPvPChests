@@ -29,6 +29,13 @@ public class ChestManager {
         this.lootChestManager = cultPvPChests.getLootChestManager();
     }
 
+    public Chest getChestByLocation(Location location) {
+        return chests.stream()
+                .filter(chest -> chest.getLocation() == location)
+                .findFirst()
+                .orElse(null);
+    }
+
     public boolean chestNameIsExists(String key) {
         return chests.stream().anyMatch(chest -> chest.getKey().equals(key));
     }

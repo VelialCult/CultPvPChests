@@ -1,7 +1,7 @@
 package ru.velialcult.pvpchests.manager;
 
-import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
+import ru.velialcult.pvpchests.Chest;
 
 import java.util.Map;
 import java.util.Random;
@@ -10,12 +10,12 @@ public class LootChestManager {
 
     private final Random random = new Random();
 
-    public void fillChestWithLoot(Chest chest, Map<ItemStack, Double> lootItems) {
-        for (int i = 0; i < chest.getInventory().getSize(); i++) {
-            if (random.nextDouble() < 0.25) {
+    public void fillChestWithLoot(Chest chest, org.bukkit.block.Chest chestBlock, Map<ItemStack, Double> lootItems) {
+        for (int i = 0; i < chestBlock.getInventory().getSize(); i++) {
+            if (random.nextDouble() < chest.getItemSlotChance()) {
                 ItemStack lootItem = getRandomLootItem(lootItems);
                 if (lootItem != null) {
-                    chest.getInventory().setItem(i, lootItem);
+                    chestBlock.getInventory().setItem(i, lootItem);
                 }
             }
         }

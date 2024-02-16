@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import ru.velialcult.library.bukkit.utils.location.LocationUtil;
 import ru.velialcult.library.core.VersionAdapter;
+import ru.velialcult.library.java.text.ReplaceData;
 import ru.velialcult.library.java.utils.TimeUtil;
 import ru.velialcult.pvpchests.Chest;
 import ru.velialcult.pvpchests.CultPvPChests;
@@ -28,26 +29,29 @@ public class ChestManager {
         this.lootChestManager = cultPvPChests.getLootChestManager();
     }
 
+    public boolean chestNameIsExists(String key) {
+        return chests.stream().anyMatch(chest -> chest.getKey().equals(key));
+    }
+
     public String getTimeUntilOpen(Chest chest) {
-        if (chest.isOpenable()) return configFile.getOpenNow();
-        return TimeUtil.getTime(chest.getTimeUntilOpen());
+        if (Bukkit.getOnlinePlayers().size() + 1 < chest.getMinOnlinePlayers()) {
+            return VersionAdapter.TextUtil().setReplaces(configFile.getMinOnline(),
+                    new ReplaceData("{online}", chest.getMinOnlinePlayers()));
+        }
+        if (chest.isOpenable()) return VersionAdapter.TextUtil().setReplaces(configFile.getUnlocked(),
+                new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilClose())));
+        else return VersionAdapter.TextUtil().setReplaces(configFile.getLocked(),
+                new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilOpen())));
     }
 
     public void openChest(Chest chest) {
         chest.setOpenable(true);
         fillChest(chest);
-        if (!chest.getMessage().isEmpty()) {
+        if (!chest.getUnlockedBroadcast().isEmpty()) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                VersionAdapter.MessageUtils().sendMessage(onlinePlayer, chest.getMessage());
+                VersionAdapter.MessageUtils().sendMessage(onlinePlayer, chest.getUnlockedBroadcast());
             }
         }
-    }
-
-    public Chest getChestByLocation(Location location) {
-        return chests.stream()
-                .filter(chest -> chest.getLocation().equals(location))
-                .findFirst()
-                .orElse(null);
     }
 
     public Chest getChestById(String id) {
@@ -73,7 +77,7 @@ public class ChestManager {
         Block block = location.getBlock();
         if (block.getType() == Material.CHEST) {
             org.bukkit.block.Chest blockChest = (org.bukkit.block.Chest) location.getBlock().getState();
-            lootChestManager.fillChestWithLoot(blockChest, chest.getLoot());
+            lootChestManager.fillChestWithLoot(chest, blockChest, chest.getLoot());
         }
     }
 
@@ -89,12 +93,13 @@ public class ChestManager {
                         loot.put(item, chance);
                     }
                 }
-                long timer = TimeUtil.parseStringToTime("chests." + key + ".delay");
+                long delay = TimeUtil.parseStringToTime("chests." + key + ".delay");
                 List<String> message = config.getStringList("chests." + key + ".message");
                 int minOnlinePlayers = config.getInt("chests." + key + ".minOnlinePlayers");
                 int itemSlotChance = config.getInt("chests." + key + ".item-slot-chance");
+                long pauseDelay = TimeUtil.parseStringToTime("chests." + key + ".pause-delay");
                 List<String> hologramLines = config.getStringList("chests." + key + ".hologram-lines");
-                addChest(new Chest(key, LocationUtil.stringToLocation("chests." + key + ".location"), timer, message, minOnlinePlayers, loot, hologramLines, itemSlotChance));
+                addChest(new Chest(key, LocationUtil.stringToLocation("chests." + key + ".location"), delay, pauseDelay, message, minOnlinePlayers, loot, hologramLines, itemSlotChance));
             }
         }
     }
@@ -108,7 +113,7 @@ public class ChestManager {
                 config.set("chests." + id + ".loot." + item.getType() + ".data", item.serialize());
             }
             config.set("chests." + id + ".delay", chest.getDelay());
-            config.set("chests." + id + ".message", chest.getMessage());
+            config.set("chests." + id + ".message", chest.getUnlockedBroadcast());
             config.set("chests." + id + ".minOnlinePlayers", chest.getMinOnlinePlayers());
             config.set("chests." + id + ".location", LocationUtil.locationToString(chest.getLocation()));
         }

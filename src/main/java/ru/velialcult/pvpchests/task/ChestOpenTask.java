@@ -15,8 +15,14 @@ public class ChestOpenTask extends BukkitRunnable {
     @Override
     public void run() {
         for (Chest chest : chestManager.getChests()) {
-            if (chest.getTimeUntilOpen() <= 0) {
-                chestManager.openChest(chest);
+            if (!chest.isOpenable()) {
+                if (chest.getTimeUntilOpen() <= 0) {
+                    chestManager.openChest(chest);
+                }
+            } else {
+                if (chest.getTimeUntilClose() <= 0) {
+                    chest.setOpenable(false);
+                }
             }
         }
     }

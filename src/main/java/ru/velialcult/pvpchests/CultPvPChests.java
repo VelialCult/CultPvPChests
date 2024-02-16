@@ -2,11 +2,14 @@ package ru.velialcult.pvpchests;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import ru.velialcult.library.bukkit.utils.ConfigurationUtil;
+import ru.velialcult.pvpchests.command.CultPvPChestsCommand;
 import ru.velialcult.pvpchests.file.ConfigFile;
 import ru.velialcult.pvpchests.manager.ChestManager;
 import ru.velialcult.pvpchests.manager.HologramManager;
 import ru.velialcult.pvpchests.manager.LootChestManager;
 import ru.velialcult.pvpchests.provides.ProvidersManager;
+import ru.velialcult.pvpchests.task.ChestOpenTask;
 
 public class CultPvPChests extends JavaPlugin {
 
@@ -30,6 +33,7 @@ public class CultPvPChests extends JavaPlugin {
             this.saveDefaultConfig();
             configFile = new ConfigFile(this);
             configFile.load();
+            ConfigurationUtil.loadConfigurations(this, "translation.yml");
 
             lootChestManager = new LootChestManager();
 
@@ -39,6 +43,11 @@ public class CultPvPChests extends JavaPlugin {
             hologramManager = new HologramManager(this);
             hologramManager.createHolograms();
             hologramManager.startUpdate();
+
+            Bukkit.getPluginCommand("cultpvpchests").setExecutor(new CultPvPChestsCommand(this));
+
+            ChestOpenTask chestOpenTask = new ChestOpenTask(chestManager);
+            chestOpenTask.runTaskTimer(this, 0L, 20L);
         } catch (Exception e) {
             getLogger().severe("Произошла ошибка при инициализации плагина: " + e.getMessage());
         }

@@ -21,7 +21,7 @@ public class ChestOpenTask extends BukkitRunnable {
                 }
             } else {
                 if (chest.getTimeUntilClose() <= 0) {
-                    chest.close();
+                    chestManager.closChest(chest);
                 }
             }
         }

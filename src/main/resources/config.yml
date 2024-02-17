@@ -22,6 +22,7 @@ messages:
       - ' &6&l* &fУстановить текст голограммы - &e/cultpvpchests set-hologram <название сундука> <сообщение> &7(Чтобы сделать перенос строки используйте \n)'
       - ' &6&l* &fУстановить шанс на появление предмета - &e/cultpvpchests set-item-chance <название сундука> <вероятность>'
       - ' &6&l* &fУстановить задержку между закрытием - &e/cultpvpchests set-pause <название сундука> <задержка>'
+      - ' &6&l* &fУдалить сундука - &e/cultpvpchests delete <название сундука>'
     create:
       usage: "&6&lCultPvPChests &8| &fИспользуйте - &e/cultpvpchests create <название сундука> <время обновления> <задержка> <минимальный онлайн>"
       key-already-exists: "&6&lCultPvPChests &8| &cДанное название уже используется."
@@ -51,5 +52,8 @@ messages:
     set-item-chance:
       usage: "&6&lCultPvPChests &8| &fИспользуйте - &e/cultpvpchests set-item-chance <название сундука> <вероятность>"
       set: "&6&lCultPvPChests &8| &fВы успешно установили вероятность появления предмета: &e{chance}"
+    delete:
+      usage: "&6&lCultPvPChests &8| &fИспользуйте - &e/cultpvpchests delete <название сундука>"
+      delete: "&6&lCultPvPChests &8| &fВы успешно удалили сундук &a{key}"
 
 chests: {}

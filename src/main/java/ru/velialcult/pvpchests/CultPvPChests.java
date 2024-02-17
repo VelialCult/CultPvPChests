@@ -48,6 +48,7 @@ public class CultPvPChests extends JavaPlugin {
             hologramManager.startUpdate();
 
             Bukkit.getPluginCommand("cultpvpchests").setExecutor(new CultPvPChestsCommand(this));
+            Bukkit.getPluginCommand("cultpvpchests").setTabCompleter(new CultPvPChestsCommand(this));
 
             ChestOpenTask chestOpenTask = new ChestOpenTask(chestManager);
             chestOpenTask.runTaskTimer(this, 0L, 20L);

@@ -15,6 +15,7 @@ import ru.velialcult.pvpchests.Chest;
 import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.file.ConfigFile;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChestManager {
@@ -27,6 +28,11 @@ public class ChestManager {
         chests = new ArrayList<>();
         this.configFile = cultPvPChests.getConfigFile();
         this.lootChestManager = cultPvPChests.getLootChestManager();
+    }
+
+    public void deleteChest(Chest chest) {
+        this.chests.remove(chest);
+        chest.delete();
     }
 
     public Chest getChestByLocation(Location location) {
@@ -51,6 +57,16 @@ public class ChestManager {
         }  else {
             return VersionAdapter.TextUtil().setReplaces(configFile.getLocked(),
                     new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilOpen())));
+        }
+    }
+
+    public void closChest(Chest chest) {
+        chest.close();
+        Location location = chest.getLocation();
+        Block block = location.getBlock();
+        if (block.getType() == Material.CHEST) {
+            org.bukkit.block.Chest blockChest = (org.bukkit.block.Chest) block.getState();
+            blockChest.getInventory().clear();
         }
     }
 
@@ -98,7 +114,7 @@ public class ChestManager {
                 HashMap<ItemStack, Double> loot = new HashMap<>();
                 if (config.contains("chests." + key + ".loot")) {
                     for (String itemKey : config.getConfigurationSection("chests." + key + ".loot").getKeys(false)) {
-                        ItemStack item = ItemStack.deserialize(config.getConfigurationSection("chests." + key + ".loot." + itemKey).getValues(true));
+                        ItemStack item = ItemStack.deserialize(config.getConfigurationSection("chests." + key + ".loot." + itemKey + ".data").getValues(true));
                         double chance = config.getDouble("chests." + key + ".loot." + itemKey + ".chance");
                         loot.put(item, chance);
                     }

@@ -12,7 +12,8 @@ public class LootChestManager {
 
     public void fillChestWithLoot(Chest chest, org.bukkit.block.Chest chestBlock, Map<ItemStack, Double> lootItems) {
         for (int i = 0; i < chestBlock.getInventory().getSize(); i++) {
-            if (random.nextDouble() < chest.getItemSlotChance()) {
+            double randomValue = 0.1 + (100 - 0.1) * random.nextDouble();
+            if (randomValue < chest.getItemSlotChance()) {
                 ItemStack lootItem = getRandomLootItem(lootItems);
                 if (lootItem != null) {
                     chestBlock.getInventory().setItem(i, lootItem);

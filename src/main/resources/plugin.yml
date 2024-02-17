@@ -1,6 +1,7 @@
 name: CultPvPChests
 main: ru.velialcult.pvpchests.CultPvPChests
 version: 1.0.0-RELEASE
+api-version: 1.16
 website: https://leaked-minecraft.pro/velialcult/
 softdepend:
   - DecentHolograms

@@ -6,9 +6,11 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.velialcult.library.bukkit.utils.PlayerUtil;
 import ru.velialcult.library.bukkit.utils.location.LocationUtil;
 import ru.velialcult.library.core.VersionAdapter;
@@ -23,8 +25,9 @@ import ru.velialcult.pvpchests.manager.HologramManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CultPvPChestsCommand implements CommandExecutor {
+public class CultPvPChestsCommand implements CommandExecutor, TabCompleter {
 
     private final ConfigFile configFile;
     private final ChestManager chestManager;
@@ -342,6 +345,27 @@ public class CultPvPChestsCommand implements CommandExecutor {
                                 new ReplaceData("{chance}", itemChance)));
                         break;
                     }
+                    case "delete": {
+                        if (args.length != 2) {
+                            VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.delete.usage"));
+                            return true;
+                        }
+
+                        String key = args[1];
+
+                        if (!chestManager.chestNameIsExists(key)) {
+                            VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.not-exists"));
+                            return true;
+                        }
+
+                        Chest chest = chestManager.getChestById(key);
+
+                        chestManager.deleteChest(chest);
+                        hologramManager.deleteHologram(chest);
+                        VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.delete.delete",
+                                new ReplaceData("{key}", key)));
+                        break;
+                    }
                     default: {
                         VersionAdapter.MessageUtils().sendMessage(sender, configFile.getList("messages.commands.help"));
                         return true;
@@ -374,6 +398,27 @@ public class CultPvPChestsCommand implements CommandExecutor {
             messageLines.add(lineBuilder.toString());
         }
         return messageLines;
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        List<String> commands = new ArrayList<>();
+        if (args.length == 1) {
+            commands.add("create");
+            commands.add("set-location");
+            commands.add("add-item");
+            commands.add("set-delay");
+            commands.add("set-message");
+            commands.add("set-min-online");
+            commands.add("set-hologram");
+            commands.add("set-item-chance");
+            commands.add("delete");
+            commands.add("set-pause");
+        } else if (args.length == 2) {
+            return chestManager.getChests().stream().map(Chest::getKey).collect(Collectors.toList());
+        }
+        return commands;
     }
 }
 

@@ -61,6 +61,15 @@ public class Chest {
         this.lastOpen = LocalDateTime.now();
     }
 
+    public void delete() {
+        try {
+            configFile.getConfig().set("chests." + getKey(), null);
+            CultPvPChests.getInstance().getConfigFile().reload();
+        } catch (Exception e) {
+            CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при удалении сундука из конфигурации: " + e.getMessage());
+        }
+    }
+
     public long getTimeUntilClose() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime future = open.plusSeconds(pauseDelay);

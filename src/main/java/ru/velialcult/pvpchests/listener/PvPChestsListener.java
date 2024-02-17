@@ -9,6 +9,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import ru.velialcult.pvpchests.Chest;
 import ru.velialcult.pvpchests.manager.ChestManager;
 
+import javax.swing.plaf.synth.SynthUI;
+
 public class PvPChestsListener implements Listener {
 
     private final ChestManager chestManager;
@@ -18,12 +20,10 @@ public class PvPChestsListener implements Listener {
     }
 
     @EventHandler
-    public void onClick(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
+    public void onClick(PlayerInteractEvent e) {;
         Block block = e.getClickedBlock();
         if (block != null) {
             Location location = block.getLocation();
-
             Chest chest = chestManager.getChestByLocation(location);
             if (chest != null) {
                 if (!chest.isOpenable()) {

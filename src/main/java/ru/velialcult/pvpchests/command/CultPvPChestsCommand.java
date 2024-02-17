@@ -60,10 +60,10 @@ public class CultPvPChestsCommand implements CommandExecutor {
                                 return true;
                             }
 
-                            long timer = 0;
+                            long delay = 0;
 
                             try {
-                                timer = TimeUtil.parseStringToTime(args[2]);
+                                delay = TimeUtil.parseStringToTime(args[2]);
 
                             } catch (Exception e) {
                                 VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.wrong-value",
@@ -73,36 +73,38 @@ public class CultPvPChestsCommand implements CommandExecutor {
                             int minOnline = 0;
 
                             try {
-                                minOnline = Integer.parseInt(args[3]);
-
-                            } catch (Exception e) {
-                                VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.wrong-value",
-                                        new ReplaceData("{value}", args[3])));
-                            }
-
-                            long pauseDelay = 0;
-
-                            try {
-                                pauseDelay = TimeUtil.parseStringToTime(args[4]);
+                                minOnline = Integer.parseInt(args[4]);
 
                             } catch (Exception e) {
                                 VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.wrong-value",
                                         new ReplaceData("{value}", args[4])));
                             }
 
-                            Block block = player.getTargetBlockExact(1);
+                            long pauseDelay = 0;
+
+                            try {
+                                pauseDelay = TimeUtil.parseStringToTime(args[3]);
+
+                            } catch (Exception e) {
+                                VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.wrong-value",
+                                        new ReplaceData("{value}", args[3])));
+                            }
+
+                            Block block = player.getTargetBlockExact(5);
 
                             if (block == null) {
-                                VersionAdapter.MessageUtils().sendMessage(player, "messages.commands.block-is-null");
+                                VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.block-is-null"));
                                 return true;
                             }
 
                             Location location = block.getLocation();
+                            System.out.println("delay " + delay);
+                            System.out.println("pause " + pauseDelay);
 
-                            Chest chest = new Chest(key, location, timer, pauseDelay, minOnline);
+                            Chest chest = new Chest(key, location, delay, pauseDelay, minOnline);
                             chestManager.addChest(chest);
                             hologramManager.createHologram(chest);
-                            VersionAdapter.MessageUtils().sendMessage(player, "messages.commands.create.create");
+                            VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.create.create"));
                         }
                         break;
                     }
@@ -126,7 +128,7 @@ public class CultPvPChestsCommand implements CommandExecutor {
                             Block block = player.getTargetBlockExact(1);
 
                             if (block == null) {
-                                VersionAdapter.MessageUtils().sendMessage(player, "messages.commands.block-is-null");
+                                VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.block-is-null"));
                                 return true;
                             }
 
@@ -203,7 +205,7 @@ public class CultPvPChestsCommand implements CommandExecutor {
 
                         chest.setPauseDelay(delay);
                         VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.set-pause.set",
-                                new ReplaceData("{delay}", TimeUtil.getTime(delay))));
+                                new ReplaceData("{time}", TimeUtil.getTime(delay))));
                         break;
                     }
                     case "set-delay": {
@@ -233,7 +235,7 @@ public class CultPvPChestsCommand implements CommandExecutor {
 
                         chest.setDelay(delay);
                         VersionAdapter.MessageUtils().sendMessage(sender, configFile.getString("messages.commands.set-delay.set",
-                                new ReplaceData("{delay}", TimeUtil.getTime(delay))));
+                                new ReplaceData("{time}", TimeUtil.getTime(delay))));
                         break;
                     }
                     case "set-min-online": {
@@ -325,7 +327,7 @@ public class CultPvPChestsCommand implements CommandExecutor {
 
                         Chest chest = chestManager.getChestById(key);
 
-                        double itemChance = 0;
+                        double itemChance = 0.0;
 
                         try {
                             itemChance = Double.parseDouble(args[2]);

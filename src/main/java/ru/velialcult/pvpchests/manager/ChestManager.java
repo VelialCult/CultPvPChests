@@ -31,7 +31,7 @@ public class ChestManager {
 
     public Chest getChestByLocation(Location location) {
         return chests.stream()
-                .filter(chest -> chest.getLocation() == location)
+                .filter(chest -> chest.getLocation().equals(location))
                 .findFirst()
                 .orElse(null);
     }
@@ -41,18 +41,21 @@ public class ChestManager {
     }
 
     public String getTimeUntilOpen(Chest chest) {
-        if (Bukkit.getOnlinePlayers().size() + 1 < chest.getMinOnlinePlayers()) {
+        if (Bukkit.getOnlinePlayers().size() < chest.getMinOnlinePlayers()) {
             return VersionAdapter.TextUtil().setReplaces(configFile.getMinOnline(),
                     new ReplaceData("{online}", chest.getMinOnlinePlayers()));
         }
-        if (chest.isOpenable()) return VersionAdapter.TextUtil().setReplaces(configFile.getUnlocked(),
-                new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilClose())));
-        else return VersionAdapter.TextUtil().setReplaces(configFile.getLocked(),
-                new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilOpen())));
+        if (chest.isOpenable())  {
+            return VersionAdapter.TextUtil().setReplaces(configFile.getUnlocked(),
+                    new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilClose())));
+        }  else {
+            return VersionAdapter.TextUtil().setReplaces(configFile.getLocked(),
+                    new ReplaceData("{time}", TimeUtil.getTime(chest.getTimeUntilOpen())));
+        }
     }
 
     public void openChest(Chest chest) {
-        chest.setOpenable(true);
+        chest.open();
         fillChest(chest);
         if (!chest.getUnlockedBroadcast().isEmpty()) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
@@ -100,13 +103,13 @@ public class ChestManager {
                         loot.put(item, chance);
                     }
                 }
-                long delay = TimeUtil.parseStringToTime("chests." + key + ".delay");
+                long delay = TimeUtil.parseStringToTime(config.getString("chests." + key + ".delay", "1m"));
                 List<String> message = config.getStringList("chests." + key + ".message");
                 int minOnlinePlayers = config.getInt("chests." + key + ".minOnlinePlayers");
-                int itemSlotChance = config.getInt("chests." + key + ".item-slot-chance");
-                long pauseDelay = TimeUtil.parseStringToTime("chests." + key + ".pause-delay");
+                double itemSlotChance = config.getDouble("chests." + key + ".item-slot-chance", 0.25);
+                long pauseDelay = TimeUtil.parseStringToTime(config.getString("chests." + key + ".pause-delay", "1m"));
                 List<String> hologramLines = config.getStringList("chests." + key + ".hologram-lines");
-                addChest(new Chest(key, LocationUtil.stringToLocation("chests." + key + ".location"), delay, pauseDelay, message, minOnlinePlayers, loot, hologramLines, itemSlotChance));
+                addChest(new Chest(key, LocationUtil.stringToLocation(config.getString("chests." + key + ".location")), delay, pauseDelay, message, minOnlinePlayers, loot, hologramLines, itemSlotChance));
             }
         }
     }
@@ -119,7 +122,10 @@ public class ChestManager {
                 config.set("chests." + id + ".loot." + item.getType() + ".chance", chest.getLoot().get(item));
                 config.set("chests." + id + ".loot." + item.getType() + ".data", item.serialize());
             }
-            config.set("chests." + id + ".delay", chest.getDelay());
+            config.set("chests." + id + ".item-slot-chance", chest.getItemSlotChance());
+            config.set("chests." + id + ".hologram-lines", chest.getHologramLines());
+            config.set("chests." + id + ".pause-delay", TimeUtil.parseTimeToString(chest.getPauseDelay()));
+            config.set("chests." + id + ".delay", TimeUtil.parseTimeToString(chest.getDelay()));
             config.set("chests." + id + ".message", chest.getUnlockedBroadcast());
             config.set("chests." + id + ".minOnlinePlayers", chest.getMinOnlinePlayers());
             config.set("chests." + id + ".location", LocationUtil.locationToString(chest.getLocation()));

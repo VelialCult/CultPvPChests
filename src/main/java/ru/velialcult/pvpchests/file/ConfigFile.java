@@ -56,12 +56,11 @@ public class ConfigFile {
     public void load() {
         strings.clear();
         config = CultPvPChests.getInstance().getConfig();
-        this.minOnline = VersionAdapter.TextUtil().colorize(config.getString("settings.hologram.lines.min-online"));
-        this.locked = VersionAdapter.TextUtil().colorize(config.getString("settings.hologram.lines.locked"));
-        this.unlocked = VersionAdapter.TextUtil().colorize(config.getString("settings.hologram.lines.unlocked"));
+        this.minOnline = VersionAdapter.TextUtil().colorize(config.getString("settings.hologram.lines.min-online", ""));
+        this.locked = VersionAdapter.TextUtil().colorize(config.getString("settings.hologram.lines.locked", ""));
+        this.unlocked = VersionAdapter.TextUtil().colorize(config.getString("settings.hologram.lines.unlocked", ""));
         ConfigurationSection section = config.getConfigurationSection("messages");
         Objects.requireNonNull(section).getKeys(true).forEach(path -> {
-
             String fullPath = "messages." + path;
             if (config.isList(fullPath)) {
                 List<String> lines = config.getStringList(fullPath);

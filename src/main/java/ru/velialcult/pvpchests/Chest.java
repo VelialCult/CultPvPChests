@@ -35,7 +35,7 @@ public class Chest {
         this(key, location, delay, pauseDelay, new ArrayList<>(), minOnlinePlayers);
     }
 
-    public Chest(String key, Location location, long pauseDelay, long delay, List<String> unlockedBroadcast, int minOnlinePlayers) {
+    public Chest(String key, Location location, long delay, long pauseDelay, List<String> unlockedBroadcast, int minOnlinePlayers) {
         this(key, location, delay, pauseDelay, unlockedBroadcast, minOnlinePlayers, new HashMap<>(),  new ArrayList<>(), 0.25);
     }
 
@@ -137,11 +137,17 @@ public class Chest {
         return isOpenable;
     }
 
-    public void setOpenable(boolean isOpenable) {
-        if (!isOpenable) {
-            this.lastOpen = LocalDateTime.now();
-        }
+    public void close() {
+        setOpenable(false);
+        this.lastOpen = LocalDateTime.now();
+    }
+
+    public void open() {
+        setOpenable(true);
         this.open = LocalDateTime.now();
+    }
+
+    public void setOpenable(boolean isOpenable) {
         this.isOpenable = isOpenable;
     }
 
@@ -198,7 +204,7 @@ public class Chest {
     public void setPauseDelay(long delay) {
         try {
             this.pauseDelay = delay;
-            configFile.getConfig().set("chests." + key + ".pause-delay",delay);
+            configFile.getConfig().set("chests." + key + ".pause-delay", TimeUtil.parseTimeToString(pauseDelay));
             configFile.reload();
         } catch (Exception e) {
             CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при установке задержки перед закрытием в слоте " + unlockedBroadcast + " для сундука " + key);

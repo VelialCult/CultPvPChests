@@ -40,8 +40,8 @@ public class HologramManager {
 
     public void createHologram(Chest chest) {
         if (providersManager.useHologramAPI()) {
-            Location hologramLocation = chest.getLocation().clone().add(0, 1, 0);
-            providersManager.getHologramProvider().createHologram(hologramLocation, Collections.emptyList(), LocationUtil.locationToString(hologramLocation), callBack -> addHologram(chest, callBack));
+            Location hologramLocation = chest.getLocation().clone().add(0.5, 2, 0.5);
+            providersManager.getHologramProvider().createHologram(hologramLocation, chest.getHologramLines(), chest.getKey(), callBack -> addHologram(chest, callBack));
         }
     }
 
@@ -63,10 +63,8 @@ public class HologramManager {
                 for (Map.Entry<Chest, HologramWrapper> entry : hologramWrappers.entrySet()) {
                     Chest chest = entry.getKey();
                     HologramWrapper hologramWrapper = entry.getValue();
-                    if (chest.isOpenable()) {
-                        hologramWrapper.updateLines(VersionAdapter.TextUtil().setReplaces(chest.getHologramLines(),
-                                new ReplaceData("{status}", chestManager.getTimeUntilOpen(chest))));
-                    }
+                    hologramWrapper.updateLines(VersionAdapter.TextUtil().setReplaces(chest.getHologramLines(),
+                            new ReplaceData("{status}", chestManager.getTimeUntilOpen(chest))));
                 }
             }
         }.runTaskTimer(plugin, 0L, 20L);

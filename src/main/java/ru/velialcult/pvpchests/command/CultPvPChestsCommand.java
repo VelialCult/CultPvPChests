@@ -100,10 +100,12 @@ public class CultPvPChestsCommand implements CommandExecutor, TabCompleter {
                                 return true;
                             }
 
-                            Location location = block.getLocation();
-                            System.out.println("delay " + delay);
-                            System.out.println("pause " + pauseDelay);
+                            if (block.getType() != Material.CHEST) {
+                                VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.not-chest"));
+                                return true;
+                            }
 
+                            Location location = block.getLocation();
                             Chest chest = new Chest(key, location, delay, pauseDelay, minOnline);
                             chestManager.addChest(chest);
                             hologramManager.createHologram(chest);
@@ -128,17 +130,24 @@ public class CultPvPChestsCommand implements CommandExecutor, TabCompleter {
 
                             Chest chest = chestManager.getChestById(key);
 
-                            Block block = player.getTargetBlockExact(1);
+                            Block block = player.getTargetBlockExact(5);
 
                             if (block == null) {
                                 VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.block-is-null"));
                                 return true;
                             }
 
+                            if (block.getType() != Material.CHEST) {
+                                VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.not-chest"));
+                                return true;
+                            }
+
                             Location blockLocation = block.getLocation();
                             chest.setLocation(blockLocation);
-                            VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.set-location.set",
-                                    new ReplaceData("{location}", LocationUtil.locationToString(blockLocation))));
+                            // Пересоздание на новой локации
+                            hologramManager.deleteHologram(chest);
+                            hologramManager.createHologram(chest);
+                            VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.set-location.set"));
                         }
                         break;
                     }

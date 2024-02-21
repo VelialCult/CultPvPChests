@@ -165,7 +165,7 @@ public class Chest {
     public void setMinOnlinePlayers(int minOnlinePlayers) {
         try {
             this.minOnlinePlayers = minOnlinePlayers;
-            configFile.getConfig().set("chests." + key + ".minOnlinePlayers", unlockedBroadcast);
+            configFile.getConfig().set("chests." + key + ".minOnlinePlayers", minOnlinePlayers);
             configFile.reload();
         } catch (Exception e) {
             CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при установке минимального онлайна  " + minOnlinePlayers + " для сундука " + key);

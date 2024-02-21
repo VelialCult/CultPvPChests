@@ -55,8 +55,7 @@ public class CultPvPChests extends JavaPlugin {
 
             Bukkit.getPluginManager().registerEvents(new PvPChestsListener(chestManager), this);
         } catch (Exception e) {
-//            getLogger().severe("Произошла ошибка при инициализации плагина: " + e.getMessage());
-            e.printStackTrace();
+              getLogger().severe("Произошла ошибка при инициализации плагина: " + e.getMessage());
         }
     }
 

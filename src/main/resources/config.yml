@@ -11,6 +11,7 @@ messages:
     wrong-value: "&6&lCultPvPChests &8| &cВы ввели неверное значение {value}"
     block-is-null: "&6&lCultPvPChests &8| &cНе удалось найти блок, на который вы смотрите"
     not-exists: "&6&lCultPvPChests &8| &cНе удалось найти сундук с данным ключём"
+    not-chest: "&6&lCultPvPChests &8| &cБлок, на который вы смотрите, не является сундуком!"
     help:
       - '&6&lCultPvPChests &8| &fПомощь по командам:'
       - ' &6&l* &fСоздать новый сундук - &e/cultpvpchests create <название сундука> <время обновления> <минимальный онлайн> <задержка>'

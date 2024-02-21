@@ -1,7 +1,7 @@
 
 settings:
   hologram:
-    lines:
+    lines: # Данные строки отображаются в голограмме с помощью {status}
       min-online: "&cНе набран минимальный онлайн {online}"
       locked: "&fСундук откроется через &a{time}"
       unlocked: "&fСундук закроется через &a{time}"

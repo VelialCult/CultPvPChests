@@ -1976,6 +1976,7 @@ items:
   POLAR_BEAR: Белый медведь
   POTION:
     EFFECT:
+      SPEED: Зелье скорости
       AWKWARD: Мутное зелье
       EMPTY: Несоздаваемое зелье
       FIRE_RESISTANCE: Зелье огнестойкости
@@ -2263,6 +2264,7 @@ items:
   LIME_DYE: Лаймовый краситель
   LINGERING_POTION:
     EFFECT:
+      SPEED: Туманное зелье скорости
       AWKWARD: Мутное туманное зелье
       EMPTY: Несоздаваемое туманное зелье
       FIRE_RESISTANCE: Туманное зелье огнестойкости

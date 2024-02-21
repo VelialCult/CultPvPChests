@@ -41,17 +41,25 @@ public class HologramManager {
     public void createHologram(Chest chest) {
         if (providersManager.useHologramAPI()) {
             Location hologramLocation = chest.getLocation().clone().add(0.5, 2, 0.5);
-            providersManager.getHologramProvider().createHologram(hologramLocation, chest.getHologramLines(), chest.getKey(), callBack -> addHologram(chest, callBack));
+            try {
+                providersManager.getHologramProvider().createHologram(hologramLocation, chest.getHologramLines(), chest.getKey(), callBack -> addHologram(chest, callBack));
+            } catch (Exception e) {
+                CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при создании голограммы: " + e.getMessage());
+            }
         }
     }
 
     public void deleteHologram(Chest chest) {
-        if (providersManager.useHologramAPI()) {
-            HologramWrapper hologramWrapper = getHologramByChest(chest);
-            if (hologramWrapper != null) {
-                this.hologramWrappers.remove(chest);
-                hologramWrapper.delete();
+        try {
+            if (providersManager.useHologramAPI()) {
+                HologramWrapper hologramWrapper = getHologramByChest(chest);
+                if (hologramWrapper != null) {
+                    this.hologramWrappers.remove(chest);
+                    hologramWrapper.delete();
+                }
             }
+        } catch (Exception e) {
+            CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при удалении голограммы: " + e.getMessage());
         }
     }
 

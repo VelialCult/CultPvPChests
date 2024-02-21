@@ -135,8 +135,9 @@ public class ChestManager {
         for (Chest chest : chests) {
             String id = chest.getKey();
             for (ItemStack item : chest.getLoot().keySet()) {
-                config.set("chests." + id + ".loot." + item.getType() + ".chance", chest.getLoot().get(item));
-                config.set("chests." + id + ".loot." + item.getType() + ".data", item.serialize());
+                String uniqueKey = UUID.randomUUID().toString();
+                config.set("chests." + id + ".loot." + uniqueKey + ".chance", chest.getLoot().get(item));
+                config.set("chests." + id + ".loot." + uniqueKey + ".data", item.serialize());
             }
             config.set("chests." + id + ".item-slot-chance", chest.getItemSlotChance());
             config.set("chests." + id + ".hologram-lines", chest.getHologramLines());

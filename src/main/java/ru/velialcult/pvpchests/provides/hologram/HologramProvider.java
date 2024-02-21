@@ -8,5 +8,5 @@ import java.util.function.Consumer;
 
 public interface HologramProvider {
 
-    void createHologram(Location location, List<String> lines, String name, Consumer<HologramWrapper> callback);
+    void createHologram(Location location, List<String> lines, String name, Consumer<HologramWrapper> callback) throws Exception;
 }

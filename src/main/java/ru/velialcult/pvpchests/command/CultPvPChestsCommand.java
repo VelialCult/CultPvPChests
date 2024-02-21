@@ -114,12 +114,12 @@ public class CultPvPChestsCommand implements CommandExecutor, TabCompleter {
                     case "set-location": {
                         if (PlayerUtil.senderIsPlayer(sender)) {
                             Player player = (Player) sender;
-                            if (args.length != 3) {
+                            if (args.length != 2) {
                                 VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.set-location.usage"));
                                 return true;
                             }
 
-                            String key = args[2];
+                            String key = args[1];
 
                             if (!chestManager.chestNameIsExists(key)) {
                                 VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.not-exists"));
@@ -176,7 +176,7 @@ public class CultPvPChestsCommand implements CommandExecutor, TabCompleter {
                             }
                             chest.addItem(itemStack, chance);
                             VersionAdapter.MessageUtils().sendMessage(player, configFile.getString("messages.commands.add-item.add",
-                                    new ReplaceData("{item}", TranslationsFile.getTranslationItem(itemStack.getType())),
+                                    new ReplaceData("{item}", TranslationsFile.getTranslationItem(itemStack)),
                                     new ReplaceData("{chance}", chance)));
                         }
                         break;

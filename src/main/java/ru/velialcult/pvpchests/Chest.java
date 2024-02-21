@@ -8,10 +8,7 @@ import ru.velialcult.pvpchests.file.ConfigFile;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Chest {
 
@@ -106,8 +103,9 @@ public class Chest {
 
     public void addItem(ItemStack itemStack, Double chance) {
         try {
+            String uniqueKey = UUID.randomUUID().toString();
             this.loot.putIfAbsent(itemStack, chance);
-            configFile.getConfig().set("chests." + key + ".loot." + itemStack.getType() + ".data", itemStack.serialize());
+            configFile.getConfig().set("chests." + key + ".loot." + uniqueKey + ".data", itemStack.serialize());
             configFile.reload();
         } catch (Exception e) {
             CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при добавлении материала " + itemStack.getType() + " с шансом  " + chance + " для сундука " + key);

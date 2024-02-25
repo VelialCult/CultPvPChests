@@ -6,6 +6,7 @@ website: https://leaked-minecraft.pro/velialcult/
 softdepend:
   - DecentHolograms
   - HolographicDisplays
+  - Multiverse-Core
 depend:
   - CultLibrary
 commands:

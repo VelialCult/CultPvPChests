@@ -2,9 +2,11 @@ package ru.velialcult.pvpchests.provides;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.provides.hologram.DecentHologramsProvider;
 import ru.velialcult.pvpchests.provides.hologram.HologramProvider;
 import ru.velialcult.pvpchests.provides.hologram.HolographicDisplaysProvider;
+import ru.velialcult.pvpchests.provides.multiverse.MultiVerseCoreProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class ProvidersManager {
     public void load() {
         loadProvider("DecentHolograms", "2.8.6");
         loadProvider("HolographicDisplays", "3.0.0");
+        loadProvider("Multiverse-Core", "4.3.1");
     }
 
     private void loadProvider(String pluginName, String minVersion) {
@@ -39,16 +42,12 @@ public class ProvidersManager {
         providers.put(pluginName, isPluginLoaded);
     }
 
-    public boolean isUseWorldEdit() {
-        return providers.getOrDefault("WorldEdit", false);
+    public boolean useMultiverseCore() {
+        return providers.getOrDefault("Multiverse-Core", false);
     }
 
     public boolean useHologramAPI() {
         return providers.getOrDefault("DecentHolograms", false) || providers.getOrDefault("HolographicDisplays", false);
-    }
-
-    public boolean useRegionAPI() {
-        return providers.getOrDefault("WorldGuard", false);
     }
 
     public HologramProvider getHologramProvider() {
@@ -67,5 +66,14 @@ public class ProvidersManager {
         } else {
             return null;
         }
+    }
+
+    public MultiVerseCoreProvider getMultiVerseProvider() {
+        boolean use = providers.getOrDefault("Multiverse-Core", false);
+        if (use) {
+            return new MultiVerseCoreProvider(CultPvPChests.getInstance());
+        }
+
+        return null;
     }
 }

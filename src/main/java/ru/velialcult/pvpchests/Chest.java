@@ -87,7 +87,7 @@ public class Chest {
         try {
             this.location = location;
             configFile.getConfig().set("chests." + getKey() + ".location", LocationUtil.locationToString(location));
-            CultPvPChests.getInstance().getConfigFile().reload();
+            configFile.reload();
         } catch (Exception e) {
             CultPvPChests.getInstance().getLogger().severe("Произошла ошибка при установке локации для сундука " + key);
         }

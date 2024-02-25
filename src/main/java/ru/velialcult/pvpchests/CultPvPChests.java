@@ -12,6 +12,7 @@ import ru.velialcult.pvpchests.manager.HologramManager;
 import ru.velialcult.pvpchests.manager.LootChestManager;
 import ru.velialcult.pvpchests.provides.ProvidersManager;
 import ru.velialcult.pvpchests.task.ChestOpenTask;
+import ru.velialcult.pvpchests.update.CheckUpdateManager;
 
 public class CultPvPChests extends JavaPlugin {
 
@@ -22,6 +23,7 @@ public class CultPvPChests extends JavaPlugin {
     private LootChestManager lootChestManager;
     private ProvidersManager providersManager;
     private HologramManager hologramManager;
+    private CheckUpdateManager checkUpdateManager;
 
     @Override
     public void onEnable() {
@@ -54,6 +56,9 @@ public class CultPvPChests extends JavaPlugin {
             chestOpenTask.runTaskTimer(this, 0L, 20L);
 
             Bukkit.getPluginManager().registerEvents(new PvPChestsListener(chestManager), this);
+
+            checkUpdateManager = new CheckUpdateManager(this);
+            checkUpdateManager.checkUpdates();
         } catch (Exception e) {
               getLogger().severe("Произошла ошибка при инициализации плагина: " + e.getMessage());
         }

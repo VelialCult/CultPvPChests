@@ -2,14 +2,11 @@ package ru.velialcult.pvpchests.listener;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import ru.velialcult.pvpchests.Chest;
-import ru.velialcult.pvpchests.manager.ChestManager;
-
-import javax.swing.plaf.synth.SynthUI;
+import ru.velialcult.pvpchests.chest.Chest;
+import ru.velialcult.pvpchests.chest.manager.ChestManager;
 
 public class PvPChestsListener implements Listener {
 

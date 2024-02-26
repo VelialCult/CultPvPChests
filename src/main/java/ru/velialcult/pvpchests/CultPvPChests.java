@@ -7,7 +7,7 @@ import ru.velialcult.library.bukkit.utils.ConfigurationUtil;
 import ru.velialcult.pvpchests.command.CultPvPChestsCommand;
 import ru.velialcult.pvpchests.file.ConfigFile;
 import ru.velialcult.pvpchests.listener.PvPChestsListener;
-import ru.velialcult.pvpchests.manager.ChestManager;
+import ru.velialcult.pvpchests.chest.manager.ChestManager;
 import ru.velialcult.pvpchests.manager.HologramManager;
 import ru.velialcult.pvpchests.manager.LootChestManager;
 import ru.velialcult.pvpchests.provides.ProvidersManager;

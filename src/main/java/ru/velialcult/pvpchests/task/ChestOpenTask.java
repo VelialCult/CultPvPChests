@@ -1,8 +1,8 @@
 package ru.velialcult.pvpchests.task;
 
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.velialcult.pvpchests.Chest;
-import ru.velialcult.pvpchests.manager.ChestManager;
+import ru.velialcult.pvpchests.chest.Chest;
+import ru.velialcult.pvpchests.chest.manager.ChestManager;
 
 public class ChestOpenTask extends BukkitRunnable {
 

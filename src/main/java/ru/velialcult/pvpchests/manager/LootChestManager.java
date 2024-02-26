@@ -2,7 +2,7 @@ package ru.velialcult.pvpchests.manager;
 
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-import ru.velialcult.pvpchests.Chest;
+import ru.velialcult.pvpchests.chest.Chest;
 import ru.velialcult.pvpchests.CultPvPChests;
 
 import java.util.Map;

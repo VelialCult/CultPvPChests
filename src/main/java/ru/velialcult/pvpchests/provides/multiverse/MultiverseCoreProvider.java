@@ -6,12 +6,12 @@ import org.bukkit.World;
 import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.provides.ProvidersManager;
 
-public class MultiVerseCoreProvider {
+public class MultiverseCoreProvider {
 
     private final ProvidersManager providersManager;
     private final CultPvPChests cultPvPChests;
 
-    public MultiVerseCoreProvider(CultPvPChests cultPvPChests) {
+    public MultiverseCoreProvider(CultPvPChests cultPvPChests) {
         this.cultPvPChests = cultPvPChests;
         this.providersManager = cultPvPChests.getProvidersManager();
     }

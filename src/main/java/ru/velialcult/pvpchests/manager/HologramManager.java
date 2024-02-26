@@ -2,11 +2,11 @@ package ru.velialcult.pvpchests.manager;
 
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.velialcult.library.bukkit.utils.location.LocationUtil;
 import ru.velialcult.library.core.VersionAdapter;
 import ru.velialcult.library.java.text.ReplaceData;
-import ru.velialcult.pvpchests.Chest;
+import ru.velialcult.pvpchests.chest.Chest;
 import ru.velialcult.pvpchests.CultPvPChests;
+import ru.velialcult.pvpchests.chest.manager.ChestManager;
 import ru.velialcult.pvpchests.provides.ProvidersManager;
 import ru.velialcult.pvpchests.provides.wrapper.HologramWrapper;
 

@@ -1,24 +1,21 @@
-package ru.velialcult.pvpchests.manager;
+package ru.velialcult.pvpchests.chest.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.EnderChest;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import ru.velialcult.library.bukkit.utils.location.LocationUtil;
 import ru.velialcult.library.core.VersionAdapter;
 import ru.velialcult.library.java.text.ReplaceData;
 import ru.velialcult.library.java.utils.TimeUtil;
-import ru.velialcult.pvpchests.Chest;
+import ru.velialcult.pvpchests.chest.Chest;
 import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.file.ConfigFile;
+import ru.velialcult.pvpchests.manager.LootChestManager;
 import ru.velialcult.pvpchests.provides.ProvidersManager;
 
 import java.util.*;

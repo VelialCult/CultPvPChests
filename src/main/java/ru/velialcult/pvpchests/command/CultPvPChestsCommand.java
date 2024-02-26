@@ -15,11 +15,11 @@ import ru.velialcult.library.bukkit.utils.PlayerUtil;
 import ru.velialcult.library.core.VersionAdapter;
 import ru.velialcult.library.java.text.ReplaceData;
 import ru.velialcult.library.java.utils.TimeUtil;
-import ru.velialcult.pvpchests.Chest;
+import ru.velialcult.pvpchests.chest.Chest;
 import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.file.ConfigFile;
 import ru.velialcult.pvpchests.file.TranslationsFile;
-import ru.velialcult.pvpchests.manager.ChestManager;
+import ru.velialcult.pvpchests.chest.manager.ChestManager;
 import ru.velialcult.pvpchests.manager.HologramManager;
 
 import java.util.ArrayList;

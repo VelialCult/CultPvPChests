@@ -1,9 +1,10 @@
-package ru.velialcult.pvpchests;
+package ru.velialcult.pvpchests.chest;
 
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import ru.velialcult.library.bukkit.utils.location.LocationUtil;
 import ru.velialcult.library.java.utils.TimeUtil;
+import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.file.ConfigFile;
 
 import java.time.Duration;

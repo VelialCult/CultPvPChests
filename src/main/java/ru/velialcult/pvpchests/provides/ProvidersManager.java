@@ -6,7 +6,7 @@ import ru.velialcult.pvpchests.CultPvPChests;
 import ru.velialcult.pvpchests.provides.hologram.DecentHologramsProvider;
 import ru.velialcult.pvpchests.provides.hologram.HologramProvider;
 import ru.velialcult.pvpchests.provides.hologram.HolographicDisplaysProvider;
-import ru.velialcult.pvpchests.provides.multiverse.MultiVerseCoreProvider;
+import ru.velialcult.pvpchests.provides.multiverse.MultiverseCoreProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,10 +68,10 @@ public class ProvidersManager {
         }
     }
 
-    public MultiVerseCoreProvider getMultiVerseProvider() {
+    public MultiverseCoreProvider getMultiVerseProvider() {
         boolean use = providers.getOrDefault("Multiverse-Core", false);
         if (use) {
-            return new MultiVerseCoreProvider(CultPvPChests.getInstance());
+            return new MultiverseCoreProvider(CultPvPChests.getInstance());
         }
 
         return null;
